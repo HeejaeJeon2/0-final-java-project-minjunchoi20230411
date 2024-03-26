@@ -106,7 +106,6 @@ public class welcome {
 	 *  - Strig	name	고객님의 이름
 	 *  - int	phone	휴대전화 번호
 	 * 반환값: 
-	 * 
 	 */
 	public static void menuCartItemList() {
 		System.out.println("2. 장바구니 상품 목록 보기 : ");
