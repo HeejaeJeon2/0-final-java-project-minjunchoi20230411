@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class welcome {
 	static final int NUM_BOOK = 3;
 	static final int NUM_ITEM = 7;
+	static CartItem[] mCartItem = new CartItem[NUM_BOOK];
+	static int mCartCount = 0;
 	
 	public static void main(String[] args) {
 		String[][] mBook = new String[NUM_BOOK][NUM_ITEM];
@@ -73,7 +75,20 @@ public class welcome {
 					
 				}
 			}
+			
 		}
+		
+	}
+	
+	public static boolean isCartInBook(String bookId) {
+		boolean flag = false;
+		for (int i = 0; i < mCartCount; i++) {
+			if (bookId == mCartItem[i].getBookID()) {
+				mCartItem[i].setQuantity(mCartItem[i].getQuantity()+1);
+				flag = true;
+			}
+		}
+		return flag;
 	}
 	/**
 	 * 설명: Print Menu
@@ -100,7 +115,8 @@ public class welcome {
 	 */
 	public static void menuGuestInfo(String name, int phone) {
 		System.out.println("현재 고객 정보 : ");
-		System.out.println("이름" + name + " 연락처 " + phone);
+		Person Person = new Person(name, phone);
+		System.out.println("이름" + Person.getName() + " 연락처 " + Person.getName());
 	}
 	
 	/**
@@ -112,21 +128,21 @@ public class welcome {
 	 */
 	public static void menuCartItemList() {
 		System.out.println("2. 장바구니 상품 목록 보기 : ");
+		System.out.println("--------------------------------------");
+		System.out.println("     도서ID \t      수량 \t       합계 ");
+		for (int i = 0; i < mCartCount; i++) {
+			System.out.println("     " + mCartItem[i].getBookID() + " \t| ");
+			System.out.println("     " + mCartItem[i].getQuantity() + " \t| ");
+			System.out.println("     " + mCartItem[i].getTotalPrice());
+			System.out.println("   ");
+		}
+		System.out.println("---------------------------------");
 	}
 	public static void menuCartClear() {
 		System.out.println("3. 장바구니 비우기 : ");
 	}
 	
 	public static void menuCartAddItem(String[][] book) {
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		BookList(book);
 		for (int i = 0; i < NUM_BOOK; i++) {
 			for (int j = 0; j < NUM_ITEM; j++)
@@ -159,6 +175,8 @@ public class welcome {
 				
 				if (str.toUpperCase().equals("Y")) {
 					System.out.println(book[numId][0] + " 도서가 장바구니에 추가되었습니다.");
+					if (!isCartInBook(book[numId][0]))
+						mCartItem[mCartCount++] = new CartItem(book[numId]);
 				}
 				quit = true;
 			} else
