@@ -5,6 +5,7 @@ public class welcome {
 	static final int NUM_ITEM = 7;
 	static CartItem[] mCartItem = new CartItem[NUM_BOOK];
 	static int mCartCount = 0;
+	static User mUser;
 	
 	public static void main(String[] args) {
 		String[][] mBook = new String[NUM_BOOK][NUM_ITEM];
@@ -15,6 +16,8 @@ public class welcome {
 		
 		System.out.println("연락처를 입력하세요: ");
 		int phone = input.nextInt(); //숫자만 입력
+		
+		mUser = new User(name, phone);
 		
 		String greeting = "Welcome to Shopping Mall!";
 		String tagline = "Welcome to Book Market!!";
@@ -40,8 +43,8 @@ public class welcome {
 			int choice = input.nextInt();
 			System.out.println(choice + "번을 선택했습니다.");
 
-			if (choice < 1 || choice > 8) {
-				System.out.println("1부터 8까지의 숫자를 입력하세요.");
+			if (choice < 1 || choice > 9) {
+				System.out.println("1부터 9까지의 숫자를 입력하세요.");
 			}
 			else {
 				switch(choice) {
@@ -69,8 +72,12 @@ public class welcome {
 						menuCartBill();
 						break;
 					case 8:
+						input.close();
 						menuCartExit();
 						quit = true;
+						break;
+					case 9:
+						menuAdminLogin();
 						break;
 					
 				}
@@ -102,6 +109,7 @@ public class welcome {
 		System.out.println("2. 장바구니 상품 목록 보기\t6. 장바구니의 항목 수량 줄이기");
 		System.out.println("3. 장바구니 비우기 \t7. 장바구니의 항목 삭제하기");
 		System.out.println("4. 영수증 표시하기 \t8. 종료");
+		System.out.println("9. 관리자 로그인");
 		System.out.println("********************************");
 	}
 	
@@ -115,6 +123,9 @@ public class welcome {
 	 */
 	public static void menuGuestInfo(String name, int phone) {
 		System.out.println("현재 고객 정보 : ");
+		// Person person = new Person(name, mobile);
+		// System.out.println("이름 " + person.getName() + " 연락처" + person.getPhone());
+		System.out.println("이름 " + mUser.getName() + "  연락처 " + mUser.getphone());
 		Person Person = new Person(name, phone);
 		System.out.println("이름" + Person.getName() + " 연락처 " + Person.getName());
 	}
@@ -198,6 +209,24 @@ public class welcome {
 	public static void menuCartExit() {
 		System.out.println("8. 종료 : ");
 	}
+	public static void menuAdminLogin() {
+		System.out.println("관리자 정보를 입력하세요");
+		
+		Scanner input = new Scanner(System.in);
+		System.out.println("아이디 : ");
+		String adminId = input.next();
+		
+		System.out.println("비밀번호 : ");
+		String adminPW = input.next();
+		
+		Admin admin = new Admin(mUser.getName(), mUser.getphone());
+		if (adminId.equals(admin.getId()) && adminPW.equals(admin.getPassword())) {
+			System.out.println("이름 " + admin.getName() + " 연락처" + admin.getphone());
+			System.out.println("아이디 " + admin.getName() + " 비밀번호" + admin.getphone());
+		} else
+			System.out.println("관리자 정보가 없습니다.");
+		
+	}
 	public static void BookList(String[][] book) {
 		
 		book[0][0] = "ISBN1234";
@@ -223,7 +252,7 @@ public class welcome {
 		book[2][4] = "컴퓨팅 사고력을 키우는 블록 코딩";
 		book[2][5] = "컴퓨터입문";
 		book[2][6] = "2019/06/10";
-				
+		
 	}
 }
 

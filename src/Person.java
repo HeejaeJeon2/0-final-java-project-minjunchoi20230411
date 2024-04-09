@@ -1,9 +1,8 @@
 public class Person {
-	// 클래스의 변수들
 	private String name;
 	private int phone;
 	private String address;
-	// 클래스의 생성자들
+	
 	public Person(String name) {
 		this.name = name;
 		
