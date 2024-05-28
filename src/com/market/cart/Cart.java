@@ -13,6 +13,14 @@ public class Cart implements CartInterface {
 		
 	}
 	
+	public ArrayList<CartItem> getmCartItem() {
+		return mCartItem;
+	}
+	
+	public void setmCartItem(ArrayList<CartItem> mCartItem) {
+		this.mCartItem = mCartItem;
+	}
+	
 	public void printBookList(ArrayList<Book> booklist) {
 		for (int i = 0; i < booklist.size(); i++) {
 			Book bookitem = booklist.get(i);
